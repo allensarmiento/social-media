@@ -8,4 +8,5 @@ export const Routes = {
   signin: `${USERS_ROUTE}/signin`,
   signout: `${USERS_ROUTE}/signout`,
   follow: `${USERS_ROUTE}/follow`,
+  unfollow: `${USERS_ROUTE}/unfollow`
 };
