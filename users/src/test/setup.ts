@@ -8,9 +8,9 @@ import { UserDoc } from '../models/user';
 declare global {
   namespace NodeJS {
     interface Global {
-      signin(userEmail?: string, userPassword?: string): Promise<string[]>
-      signup(): Promise<UserDoc>
-      login(): Promise<string[]>
+      signin(email: string, password: string): Promise<string[]>
+      signup(email: string, password: string): Promise<UserDoc>
+      signupAndLogin(): Promise<string[]>
     }
   }
 }
@@ -42,12 +42,9 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-global.signin = async () => {
-  const email = 'test@test.com';
-  const password = 'password';
-
+global.signin = async (email: string, password: string) => {
   const response = await request(app)
-    .post(Routes.signup)
+    .post(Routes.signin)
     .send({ email, password })
     .expect(201);
 
@@ -56,9 +53,12 @@ global.signin = async () => {
   return cookie;
 };
 
-global.signup = async (): Promise<UserDoc> => {
-  const email = 'test@test.com';
-  const password = 'password';
+global.signup = async (
+  userEmail?: string,
+  userPassword?: string,
+): Promise<UserDoc> => {
+  const email = userEmail || 'test@test.com';
+  const password = userPassword || 'password';
 
   const response = await request(app)
     .post(Routes.signup)
@@ -68,12 +68,12 @@ global.signup = async (): Promise<UserDoc> => {
   return response.body;
 };
 
-global.login = async () => {
+global.signupAndLogin = async () => {
   const email = 'test@test.com';
   const password = 'password';
 
   const response = await request(app)
-    .post(Routes.signin)
+    .post(Routes.signup)
     .send({ email, password });
 
   expect(response.status).toEqual(201);

@@ -2,6 +2,10 @@ import mongoose from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 import { PasswordManager } from '../services/password-manager';
 
+interface Follow {
+  userId: string;
+}
+
 interface UserAttrs  {
   email: string;
   password: string;
@@ -11,8 +15,8 @@ export interface UserDoc extends mongoose.Document {
   email: string;
   password: string;
   version: number;
-  followers: [];
-  following: [];
+  followers: Follow[];
+  following: Follow[];
 }
 
 interface UserModel extends mongoose.Model<UserDoc> {

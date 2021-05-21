@@ -12,7 +12,7 @@ it(
 );
 
 it('responds with details about the current user', async () => {
-  const cookie = await global.signin();
+  const cookie = await global.signupAndLogin();
 
   const response = await request(app)
     .get(Routes.currentUser)

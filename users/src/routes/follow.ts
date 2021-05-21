@@ -28,18 +28,10 @@ router.get(
       throw new NotFoundError();
     }
 
-    userFollow.update({
-      '$push': {
-        'followers': { userId: userFollowing.id },
-      },
-    });
+    userFollow.followers.push({ userId: userFollowing.id });
     await userFollow.save();
 
-    userFollowing.update({
-      '$push': {
-        'following': { userId: userFollow.id },
-      },
-    });
+    userFollowing.following.push({ userId: userFollow.id });
     await userFollowing.save();
 
     res.send(userFollowing);
