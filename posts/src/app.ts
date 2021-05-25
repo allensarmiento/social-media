@@ -3,6 +3,7 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { currentUser, errorHandler, NotFoundError } from './common';
+import { indexPostRouter } from './routes/index';
 import { newPostRouter } from './routes/new';
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(
 );
 app.use(currentUser);
 
+app.use(indexPostRouter);
 app.use(newPostRouter);
 
 app.all('*', async (req, res) => {

@@ -6,7 +6,7 @@ interface PostAttrs {
   userId: string;
 }
 
-interface PostDoc extends mongoose.Document {
+export interface PostDoc extends mongoose.Document {
   content: string;
   created: string;
   updated: string;

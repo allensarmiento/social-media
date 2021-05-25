@@ -42,6 +42,7 @@ global.signin = () => {
   const jwtPayload = {
     id: generateId(),
     email: 'test@test.com',
+    following: [],
   };
 
   const token = jwt.sign(jwtPayload, process.env.JWT_KEY!);
